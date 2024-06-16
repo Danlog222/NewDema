@@ -14,12 +14,12 @@ $config = [
     ],
     'components' => [
         'formatter' => [
-            'defaultTimeZone' => 'Europe/Moscow',
+            'defaultTimeZone' => 'Europe/Moscow'
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '123',
-            'BaseUrl' => '',
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

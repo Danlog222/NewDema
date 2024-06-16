@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\db\Query;
 
 /**
  * This is the model class for table "category".
@@ -53,15 +52,5 @@ class Category extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::class, ['category_id' => 'id']);
-    }
-    
-    public static function getCategory()
-    {
-        return (new Query())
-        ->select('title')
-        ->from('category')
-        ->indexBy('id')
-        ->column()
-        ;
     }
 }

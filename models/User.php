@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
@@ -23,7 +22,7 @@ use yii\web\IdentityInterface;
  * @property Category $category
  * @property Role $role
  */
-class User extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -97,32 +96,4 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Role::class, ['id' => 'role_id']);
     }
-    public static function findIdentity($id)
-    {
-        return static::findOne($id);
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        return static::findOne(['access_token' => $token]);
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    public function validateAuthKey($authKey)
-    {
-        return $this->auth_key === $authKey;
-    }
-    public function validatePassword($password){
-        return Yii::$app->security->validatePassword($password,$this->password);
-    }
 }
-
