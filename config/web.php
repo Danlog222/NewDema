@@ -12,6 +12,16 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'account' => [
+            'class' => 'app\modules\account\Module',
+            'defaultRoute' => 'account',
+        ],
+        'mfc-panel' => [
+            'class' => 'app\modules\admin\Module',
+            'defaultRoute' => 'application',
+        ],
+    ],
     'components' => [
         'formatter' => [
             'defaultTimeZone' => 'Europe/Moscow'

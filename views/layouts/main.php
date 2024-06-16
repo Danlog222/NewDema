@@ -39,11 +39,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Главная', 'url' => ['/site/index']],
+            ['label' => 'Отзывы', 'url' => ['/feedback']],
+            !Yii::$app->user->isGuest &&  !Yii::$app->user->identity->isAdmin
+            ? ['label' => 'Личный кабинет', 'url' => ['/account']]
+            : '',
+            !Yii::$app->user->isGuest &&  Yii::$app->user->identity->isAdmin
+            ? ['label' => 'Кабинет специалиста', 'url' => ['/mfc-panel']]
+            : '',
             Yii::$app->user->isGuest
             ? ['label' => 'Регистрация', 'url' => ['/site/register']]
+            : '',
+            Yii::$app->user->isGuest 
+            ? ['label' => 'Вход для специалиста', 'url' => ['/mfc-panel/login']]
             : '',
             Yii::$app->user->isGuest
                 ? ['label' => 'Авторизация', 'url' => ['/site/login']]

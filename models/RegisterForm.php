@@ -57,9 +57,7 @@ class RegisterForm extends \yii\base\Model
             ['password', 'match', 'pattern' => '/^[a-z0-9]+$/i'],
             ['password', 'string', 'min' => '6'],
             ['phone', 'match', 'pattern' => '/^\+7\(\d{3}\)\-\d{3}\-\d{2}\-\d{2}$/'],
-
-
-
+            ['login', 'match', 'pattern' => '/^[a-z]+$/i'],
         ];
     }
 
