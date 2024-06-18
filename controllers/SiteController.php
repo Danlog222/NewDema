@@ -9,7 +9,6 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\RegisterForm;
 
 class SiteController extends Controller
 {
@@ -78,7 +77,6 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-        Yii::$app->session->setFlash('success', 'Успешный вход!');
             return $this->goBack();
         }
 
@@ -127,23 +125,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-    public function actionRegister()
-{
-    $model = new RegisterForm();
-    if(Yii::$app->request->isPost){
-         if ($model->load(Yii::$app->request->post())) {
-        if ($user = $model->registerUser()) {
-            if(Yii::$app->user->login($user)){
-                Yii::$app->session->setFlash('success', 'Успешная регистрация!');
-                return $this->goHome();
-            }
-        }
-    }
-  }
-   
-
-    return $this->render('register', [
-        'model' => $model,
-    ]);
-}
 }

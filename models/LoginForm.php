@@ -13,7 +13,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $email;
+    public $username;
     public $password;
     public $rememberMe = true;
 
@@ -27,27 +27,11 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['email', 'password'], 'required'],
-            ['email', 'email'],
-            ['password', 'match', 'pattern' => '/^[a-z0-9]+$/i'],
-            ['password', 'string', 'min' => '6'],
+            [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
+            ['rememberMe', 'boolean'],
+            // password is validated by validatePassword()
             ['password', 'validatePassword'],
-        ];
-    }
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'full_name' => 'ФИО',
-            'login' => 'Логин',
-            'email' => 'Email',
-            'passport' => 'серия номер паспорта',
-            'password' => 'Пароль',
-            'phone' => 'Телефон',
-            'auth_key' => 'Auth Key',
-            'role_id' => 'Role ID',
-            'category_id' => 'Категория граждан',
         ];
     }
 
@@ -64,8 +48,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                Yii::$app->session->setFlash('danger', 'Неверные данные!');
-                $this->addError($attribute, 'Неверные данные!');
+                $this->addError($attribute, 'Incorrect username or password.');
             }
         }
     }
@@ -77,7 +60,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser());
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;
     }
@@ -90,7 +73,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findOne([ 'email' => $this->email]);
+            $this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;
