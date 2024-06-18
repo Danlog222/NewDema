@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "status".
@@ -57,5 +58,14 @@ class Status extends \yii\db\ActiveRecord
     public static function getStatusId($status)
     {
         return self::findOne(['title' => $status])->id;
+    }
+
+    public static function getStatus(){
+        return (new Query())
+        ->select('title')
+        ->from('status')
+        ->indexBy('id')
+        ->column()
+        ;
     }
 }

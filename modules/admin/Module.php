@@ -2,6 +2,9 @@
 
 namespace app\modules\admin;
 
+use Yii;
+use yii\filters\AccessControl;
+
 /**
  * stosto-panel module definition class
  */
@@ -21,4 +24,21 @@ class Module extends \yii\base\Module
 
         // custom initialization code goes here
     }
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => fn() => Yii::$app->user->identity->isAdmin,
+                    ],
+                ],
+                'denyCallback' => fn() => Yii::$app->response->redirect('/'),
+            ],
+        ];
+    }
 }
+

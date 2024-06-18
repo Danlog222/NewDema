@@ -80,7 +80,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             Yii::$app->session->setFlash('success', 'Успешный вход!');
             return $this->goHome();
-            // return Yii::$app->response->redirect(Yii::$app->user->identity->idAdmin ?'' :'');
+             return Yii::$app->response->redirect(Yii::$app->user->identity->idAdmin ?'/stosto-panel' :'/account');
         }
 
         $model->password = '';

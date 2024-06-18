@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "master".
@@ -39,8 +40,8 @@ class Master extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
+            'id' => 'Номер',
+            'title' => 'Название',
         ];
     }
 
@@ -52,5 +53,13 @@ class Master extends \yii\db\ActiveRecord
     public function getApplications()
     {
         return $this->hasMany(Application::class, ['master_id' => 'id']);
+    }
+    public static function getMaster(){
+        return (new Query())
+        ->select('title')
+        ->from('master')
+        ->indexBy('id')
+        ->column()
+        ;
     }
 }

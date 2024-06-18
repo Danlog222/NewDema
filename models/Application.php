@@ -21,6 +21,8 @@ use Yii;
  */
 class Application extends \yii\db\ActiveRecord
 {
+    public $time;
+    public $date_str;
     /**
      * {@inheritdoc}
      */
@@ -35,7 +37,7 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'status_id', 'date', 'description', 'master_id'], 'required'],
+            [['user_id', 'status_id', 'date_str', 'time', 'description', 'master_id'], 'required'],
             [['user_id', 'status_id', 'master_id'], 'integer'],
             [['date', 'created_at'], 'safe'],
             [['description'], 'string'],
@@ -51,13 +53,13 @@ class Application extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'status_id' => 'Status ID',
-            'date' => 'Date',
-            'created_at' => 'Created At',
-            'description' => 'Description',
-            'master_id' => 'Master ID',
+            'id' => 'Номер заявки',
+            'user_id' => 'Пользователь',
+            'status_id' => 'Статус заявки',
+            'date' => 'Дата приёма',
+            'created_at' => 'Время создания',
+            'description' => 'Описание причины',
+            'master_id' => 'Мастер',
         ];
     }
 
@@ -89,5 +91,21 @@ class Application extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function checkNew()
+    {
+        $res = self::find()
+        ->where(['date' => $this->date])
+        ->andWhere(['in', 'status_id', [Status::getStatusId('Новая'), Status::getStatusId('Выполнено')]])
+        ->andWhere(['master_id' => $this->master_id])
+        ->count()
+        ;
+        if($res) {
+            $this->addError('time', 'Ошибка времени');
+            $this->addError('date_str', 'Дата - неверная');
+            return false;
+        }
+      return true;
     }
 }

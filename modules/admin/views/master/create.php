@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Master $model */
 
-$this->title = 'Create Master';
-$this->params['breadcrumbs'][] = ['label' => 'Masters', 'url' => ['index']];
+$this->title = 'Добавить мастера';
+$this->params['breadcrumbs'][] = ['label' => 'Управление мастерами', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="master-create">

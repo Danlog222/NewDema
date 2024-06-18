@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Application;
+use app\models\Status;
 use app\modules\admin\models\ApplicationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,6 +82,24 @@ class ApplicationController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDone($id)
+    {
+        $model = Application::findOne($id);
+        $model->status_id = Status::getStatusId('Выполнено');
+        if($model->save(false)){
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+    }
+    public function actionCancel($id)
+    {
+        $model = Application::findOne($id);
+        $model->status_id = Status::getStatusId('Отменена');
+        if($model->save(false)){
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+    }
+
 
     /**
      * Updates an existing Application model.

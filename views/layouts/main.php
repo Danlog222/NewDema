@@ -32,15 +32,21 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <header id="header">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Ноготочки Спб',
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'options' => ['class' => 'navbar-expand-md navbar-dark colorbg fixed-top']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Отзывы', 'url' => ['/site/about']],
+            ['label' => 'Отзывы', 'url' => ['/feedback']],
+            !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdmin
+            ? ['label' => 'Личный кабинет', 'url' => ['/account']]
+            : '',
+            !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin
+            ? ['label' => 'Административная панель', 'url' => ['/stosto-panel']]
+            : '',
             Yii::$app->user->isGuest
             ? ['label' => 'Регистрация', 'url' => ['/site/register']]
             : '',

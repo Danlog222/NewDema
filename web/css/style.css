@@ -1,0 +1,55 @@
+.is-invalid{
+    animation: invalid 3s ease-in-out;
+}
+
+@keyframes invalid {
+    0%{
+        box-shadow: 0 0 3px blueviolet; 
+    }
+
+    50%{
+        box-shadow: 0 0 3px red;
+    }
+
+    100%{
+        box-shadow: 0 0 3px palevioletred;
+    }
+}
+.invalid-feedback{
+    animation: feedback 1s ease-in;
+}
+@keyframes feedback {
+    0%{
+        transform: translateX(100px);
+    }
+
+    100%{
+        transform: translateX(0px);
+    
+}
+}
+
+body{
+    animation: head 1s;
+}
+
+@keyframes head {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    
+}
+}
+
+.colorbg{
+    background-color: pink;
+}
+#feedback{
+    background-image: url('/web/uploads/bg.jpg');
+    background-size: cover;
+    color:white;
+    padding: 3rem;
+}

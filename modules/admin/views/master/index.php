@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var app\modules\admin\models\MasterSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Masters';
+$this->title = 'Управление мастерами';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="master-index">
@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Master', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Назад', ['/stosto-panel'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Добавить мастера', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -26,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
